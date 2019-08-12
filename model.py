@@ -1,7 +1,7 @@
 from tensorflow import keras
 from tensorflow.keras import layers
 import tensorflow as tf
-learn_rate = 0.001
+learn_rate = 0.01
 """
 def CNN_model(x,y,z):
     inputs = keras.Input(shape=(x,y,z), name='input')
