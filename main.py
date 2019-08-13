@@ -7,7 +7,6 @@ import time
 import os
 import argparse
 from datetime import datetime
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from model import CNN_model, CNN_model_sec
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 input_x = 300

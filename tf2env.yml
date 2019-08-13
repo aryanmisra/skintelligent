@@ -1,0 +1,65 @@
+name: tf2gpu
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ca-certificates=2019.6.16=hecc5488_0
+  - certifi=2019.6.16=py37_1
+  - cycler=0.10.0=py_1
+  - freetype=2.10.0=h5db478b_0
+  - icu=64.2=he025d50_0
+  - imageio=2.5.0=py37_0
+  - intel-openmp=2019.4=245
+  - jpeg=9c=hfa6e2cd_1001
+  - kiwisolver=1.1.0=py37he980bc4_0
+  - libblas=3.8.0=11_mkl
+  - libcblas=3.8.0=11_mkl
+  - liblapack=3.8.0=11_mkl
+  - libpng=1.6.37=h7602738_0
+  - libtiff=4.0.10=h6512ee2_1003
+  - lz4-c=1.8.3=he025d50_1001
+  - matplotlib=3.1.1=py37_1
+  - matplotlib-base=3.1.1=py37h2852a4a_1
+  - mkl=2019.4=245
+  - numpy=1.17.0=py37hc71023c_0
+  - olefile=0.46=py_0
+  - openssl=1.1.1c=hfa6e2cd_0
+  - pillow=6.1.0=py37h9a613e6_0
+  - pip=19.1.1=py37_0
+  - pyparsing=2.4.2=py_0
+  - pyqt=5.9.2=py37h6538335_2
+  - python=3.7.3=h8c8aaf0_1
+  - python-dateutil=2.8.0=py_0
+  - qt=5.9.7=h506e8af_3
+  - setuptools=41.0.1=py37_0
+  - sip=4.19.8=py37h6538335_1000
+  - sqlite=3.29.0=he774522_0
+  - tk=8.6.9=hfa6e2cd_1002
+  - tornado=6.0.3=py37hfa6e2cd_0
+  - vc=14.1=h0510ff6_4
+  - vs2015_runtime=14.15.26706=h3a45250_4
+  - wheel=0.33.4=py37_0
+  - wincertstore=0.2=py37_0
+  - xz=5.2.4=h2fa13f4_1001
+  - zlib=1.2.11=h2fa13f4_1005
+  - zstd=1.4.0=hd8a0e53_0
+  - pip:
+    - absl-py==0.7.1
+    - astor==0.8.0
+    - gast==0.2.2
+    - google-pasta==0.1.7
+    - grpcio==1.22.0
+    - h5py==2.9.0
+    - keras-applications==1.0.8
+    - keras-preprocessing==1.1.0
+    - markdown==3.1.1
+    - protobuf==3.9.0
+    - six==1.12.0
+    - tb-nightly==1.14.0a20190603
+    - tensorflow-gpu==2.0.0b1
+    - termcolor==1.1.0
+    - tf-estimator-nightly==1.14.0.dev2019060501
+    - werkzeug==0.15.5
+    - wrapt==1.11.2
+prefix: C:\Users\aryan\Anaconda3\envs\tf2gpu
+
