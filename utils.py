@@ -7,8 +7,8 @@ import tensorflow as tf
 #utility package for main train script
 #parsing jsons into array format
 
-json_path = 'json/'
-img_dir = 'images/'
+json_path = '../json/'
+img_dir = '../images/'
 
 def fileList(source): #creating a list of all json files in directory
     matches = []
@@ -141,4 +141,4 @@ if __name__ == '__main__':
     t0 = time.time()
     #fileList(json_path)
     t1 = time.time()
-    print("Process completed in {0:.5f} seconds for {1} files.".format(t1-t0, len(json_list))) 
+    print("Process completed in {0:.5f} seconds for {1} files.".format(t1-t0, len(json_list)))
