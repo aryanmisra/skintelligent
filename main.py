@@ -12,8 +12,8 @@ from model import CNN_model, CNN_model_sec
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 input_x = 300
 input_y = 300
-batch_size = 16
-epochs = 10000
+batch_size = 32
+epochs = 500
 augmentations = [utils.flip, utils.color, utils.zoom, utils.rotate]
 parser = argparse.ArgumentParser()
 parser.add_argument("--cont", '-c', help="resume training",
