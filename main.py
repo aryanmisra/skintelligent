@@ -30,7 +30,9 @@ def plot_images(dataset, n_images, samples_per_image):
     plt.figure()
     plt.imshow(output)
     plt.show()
+
 def visualization(history,mode):
+
     plt.plot(history.history['accuracy'])
     plt.plot(history.history['val_accuracy'])
     plt.title('Model accuracy')
@@ -40,6 +42,7 @@ def visualization(history,mode):
     plt.savefig('vis/model_acc_%s.png' % mode)
     plt.clf()
     time.sleep(1)
+
     # Plot training & validation loss values
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
@@ -57,12 +60,17 @@ def preprocess_image(image):
     return image
 
 def preprocess_load_image(path):
+
     final_im_path = utils.img_dir + path
     image = tf.io.read_file(final_im_path)
     return preprocess_image(image)
+
 def maprange(x):
+
     return tf.clip_by_value(x, 0, 1)
+
 def train(mode):
+
     t0 = time.time()
     if mode == 'N':
         image_path_list = image_paths()
@@ -84,10 +92,12 @@ def train(mode):
     path_ds = tf.data.Dataset.from_tensor_slices(image_path_list)
     image_ds = path_ds.map(preprocess_load_image, num_parallel_calls=AUTOTUNE)
     
-    for f in augmentations:
+    #for f in augmentations:
         
-        image_ds = image_ds.map(f, num_parallel_calls=4)
-    
+    #    image_ds = image_ds.map(f, num_parallel_calls=4)
+    for f in augmentations:
+
+        image_ds = image_ds.map(lambda x: tf.cond(tf.random.uniform([], 0, 1) > 0.75, lambda: f(x), lambda: x), num_parallel_calls=4)
     image_ds = image_ds.map(maprange, num_parallel_calls=4)
     
     label_ds = tf.data.Dataset.from_tensor_slices(tf.cast(labels, tf.int64))
@@ -117,18 +127,18 @@ def train(mode):
 
     #os.mkdir(logdir)
     callbacks = [
-    keras.callbacks.EarlyStopping(monitor='loss', 
-        min_delta=1e-6, 
-        patience=10,
-        verbose=1),
+    #keras.callbacks.EarlyStopping(monitor='loss', 
+    #    min_delta=1e-6, 
+    #    patience=10,
+    #    verbose=1),
     keras.callbacks.ModelCheckpoint(
         filepath=('saves/model_%s_{epoch}.h5' % (mode)),
         save_best_only=True,
         monitor='val_loss',
         verbose=1),
     #keras.callbacks.TensorBoard(log_dir=logdir,histogram_freq=1),
-    keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.2,
-        patience=2, min_lr=0.00001)
+    keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2,
+        patience=2, min_lr=0.000001)
     ]
     
     print(net.summary())
@@ -138,7 +148,7 @@ def train(mode):
     t1 = time.time()
     print("Training completed in {0:.5f} seconds.".format(t1-t0))
 
-    visualization(history, mode)
+    #visualization(history, mode)
 
 
 if __name__ == '__main__':

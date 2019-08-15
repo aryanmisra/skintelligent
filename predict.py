@@ -49,6 +49,7 @@ try:
             0
         ]
         classes = np.squeeze(classes)
+        
         if classes[0] == 1:
             classes_sec_a = model_sec_a.predict(img)
             idx_a = np.argmax(classes_sec_a)
