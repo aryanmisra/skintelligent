@@ -1,7 +1,7 @@
 from tensorflow import keras
 from tensorflow.keras import layers
 import tensorflow as tf
-learn_rate = 0.01
+learn_rate = 0.00146
 """
 def CNN_model(x,y,z):
     inputs = keras.Input(shape=(x,y,z), name='input')
@@ -100,10 +100,9 @@ def CNN_model(x,y,z):
     base_model = tf.keras.applications.MobileNetV2(input_shape=(x, y, z),
                                                include_top=False,
                                                weights='imagenet')
-    for layer in base_model.layers[:-11]:
+    for layer in base_model.layers[:-7]:
         layer.trainable = False
-    pred_layer = layers.Dense(5, activation='sigmoid')
-    global_average_layer = layers.GlobalAveragePooling2D()
+    
     model = tf.keras.Sequential([
         base_model,
         layers.GlobalAveragePooling2D(),
@@ -111,11 +110,10 @@ def CNN_model(x,y,z):
         layers.Dropout(0.5),
         layers.Dense(64, activation='relu'),
         layers.Dropout(0.5),
-        layers.Dense(32, activation='relu'),
-        layers.Dropout(0.5),
+        
         layers.Dense(5, activation='softmax')
         ])
-    model.compile(optimizer=keras.optimizers.Adam(learn_rate),
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=learn_rate, beta_2=0.9999, epsilon=1e-08),
         loss='binary_crossentropy',
         metrics=['accuracy'])
     
@@ -125,10 +123,9 @@ def CNN_model_sec(x,y,z):
     base_model = tf.keras.applications.MobileNetV2(input_shape=(x, y, z),
                                                include_top=False,
                                                weights='imagenet')
-    for layer in base_model.layers[:-11]:
+    for layer in base_model.layers[:-7]:
         layer.trainable = False
-    pred_layer = layers.Dense(5, activation='sigmoid')
-    global_average_layer = layers.GlobalAveragePooling2D()
+   
     model = tf.keras.Sequential([
         base_model,
         layers.GlobalAveragePooling2D(),
@@ -136,11 +133,10 @@ def CNN_model_sec(x,y,z):
         layers.Dropout(0.5),
         layers.Dense(64, activation='relu'),
         layers.Dropout(0.5),
-        layers.Dense(32, activation='relu'),
-        layers.Dropout(0.5),
+        
         layers.Dense(2, activation='softmax')
         ])
-    model.compile(optimizer=keras.optimizers.Adam(learn_rate),
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=learn_rate, beta_2=0.9999, epsilon=1e-08),
         loss='binary_crossentropy',
         metrics=['accuracy'])
     

@@ -39,8 +39,8 @@ try:
 
         classes = model.predict(img)
         print(classes)
-        classes[classes < 0.25] = 0
-        classes[classes >= 0.25] = 1
+        classes[classes < 0.2] = 0
+        classes[classes >= 0.2] = 1
         out = [
             0,
             0,
