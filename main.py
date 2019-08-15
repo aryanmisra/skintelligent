@@ -10,8 +10,8 @@ from datetime import datetime
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from model import CNN_model, CNN_model_sec
 AUTOTUNE = tf.data.experimental.AUTOTUNE
-input_x = 300
-input_y = 300
+input_x = 224
+input_y = 224
 batch_size = 16
 epochs = 500
 augmentations = [utils.flip, utils.color, utils.zoom, utils.rotate]
@@ -98,8 +98,8 @@ def train(mode):
     ds = ds.batch(batch_size)
     ds = ds.prefetch(buffer_size=AUTOTUNE)
 
-    v_ds = ds.take(int(0.25 * len(labels))) 
-    t_ds = ds.skip(int(0.25 * len(labels)))
+    v_ds = ds.take(int(0.15 * len(labels))) 
+    t_ds = ds.skip(int(0.15 * len(labels)))
 
     
     t1 = time.time()
