@@ -128,7 +128,7 @@ def zoom(x: tf.Tensor) -> tf.Tensor:
         boxes[i] = [x1, y1, x2, y2]
 
     def random_crop(img):
-        crops = tf.image.crop_and_resize([tf.squeeze(img)], boxes=boxes, box_indices=np.zeros(len(scales)), crop_size=(300, 300))
+        crops = tf.image.crop_and_resize([tf.squeeze(img)], boxes=boxes, box_indices=np.zeros(len(scales)), crop_size=(224, 224))
         return crops[tf.random.uniform(shape=[], minval=0, maxval=len(scales), dtype=tf.int32)]
 
     choice = tf.random.uniform(shape=[], minval=0., maxval=1., dtype=tf.float32)
