@@ -107,9 +107,9 @@ def CNN_model(x,y,z):
         base_model,
         layers.GlobalAveragePooling2D(),
         layers.Dense(128, activation='relu'),
-        layers.Dropout(0.5),
+        layers.Dropout(0.25),
         layers.Dense(64, activation='relu'),
-        layers.Dropout(0.5),
+        layers.Dropout(0.3),
         
         layers.Dense(5, activation='softmax')
         ])
@@ -130,9 +130,9 @@ def CNN_model_sec(x,y,z):
         base_model,
         layers.GlobalAveragePooling2D(),
         layers.Dense(128, activation='relu'),
-        layers.Dropout(0.5),
+        layers.Dropout(0.25),
         layers.Dense(64, activation='relu'),
-        layers.Dropout(0.5),
+        layers.Dropout(0.3),
         
         layers.Dense(2, activation='softmax')
         ])
