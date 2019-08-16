@@ -108,8 +108,8 @@ def train(mode):
     ds = ds.batch(batch_size)
     ds = ds.prefetch(buffer_size=AUTOTUNE)
 
-    v_ds = ds.take(int(0.15 * len(labels))) 
-    t_ds = ds.skip(int(0.15 * len(labels)))
+    v_ds = ds.take(int(0.2 * len(labels))) 
+    t_ds = ds.skip(int(0.2 * len(labels)))
 
     
     t1 = time.time()
