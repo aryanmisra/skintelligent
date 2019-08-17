@@ -7,7 +7,7 @@ import time
 import os
 import argparse
 from datetime import datetime
-tf.enable_eager_execution()
+#tf.enable_eager_execution()
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from model import CNN_model, CNN_model_sec
 AUTOTUNE = tf.data.experimental.AUTOTUNE
