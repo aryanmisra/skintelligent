@@ -7,6 +7,7 @@ import time
 import os
 import argparse
 from datetime import datetime
+tf.enable_eager_execution()
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from model import CNN_model, CNN_model_sec
 AUTOTUNE = tf.data.experimental.AUTOTUNE
@@ -124,7 +125,13 @@ def train(mode):
         "fit",
         datetime.now().strftime("%Y%m%d-%H%M%S"),
     )
-
+    class_weights={
+        0: len(utils.json_list)/utils.length('A'),  # A
+        1: len(utils.json_list)/utils.length('C'),  # C
+        2: len(utils.json_list)/utils.length('P'),  # P
+        3: len(utils.json_list)/utils.length('U'),  # U
+        4: len(utils.json_list)/utils.length('W')  # W
+    }
     #os.mkdir(logdir)
     callbacks = [
     #keras.callbacks.EarlyStopping(monitor='loss', 
@@ -137,14 +144,18 @@ def train(mode):
         monitor='val_loss',
         verbose=1),
     #keras.callbacks.TensorBoard(log_dir=logdir,histogram_freq=1),
-    keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2,
+    keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.2,
         patience=2, min_lr=0.000001)
     ]
     
     print(net.summary())
     steps_per_epoch=tf.math.ceil(len(image_path_list)/batch_size).numpy()
     t0 = time.time()
-    history = net.fit(t_ds, epochs=epochs,callbacks=callbacks, steps_per_epoch=steps_per_epoch, validation_data=v_ds, verbose=1)
+    if mode == 'N':
+        history = net.fit(t_ds, epochs=epochs,callbacks=callbacks, steps_per_epoch=steps_per_epoch, validation_data=v_ds, verbose=1, class_weight=class_weights)
+    else:
+        history = net.fit(t_ds, epochs=epochs,callbacks=callbacks, steps_per_epoch=steps_per_epoch, validation_data=v_ds, verbose=1)
+
     t1 = time.time()
     print("Training completed in {0:.5f} seconds.".format(t1-t0))
 

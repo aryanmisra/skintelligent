@@ -82,6 +82,26 @@ def json_process_se(cat):
     new_Y = new_Y[~np.all(new_Y == 0, axis=1)]
     return new_Y, new_P
         
+def length(cat):
+    Y = json_process(True)
+    if cat == 'A':
+        Y = np.delete(Y, [1,2,3,4], axis=1)
+        return len(Y[~np.all(Y == 0, axis=1)])
+    elif cat == 'C':
+        Y = np.delete(Y, [0,2,3,4], axis=1)
+        return len(Y[~np.all(Y == 0, axis=1)])
+    elif cat == 'P':
+        Y = np.delete(Y, [0,1,3,4], axis=1)
+        return len(Y[~np.all(Y == 0, axis=1)])
+    elif cat == 'U':
+        Y = np.delete(Y, [0,1,2,4], axis=1)
+        return len(Y[~np.all(Y == 0, axis=1)])
+    elif cat == 'W':
+        Y = np.delete(Y, [0,1,2,3], axis=1)
+        return len(Y[~np.all(Y == 0, axis=1)])
+    else:
+        raise Exception('This function should only recieve an input of either A, C, P, U, or W')
+
 
 def image_paths():
     paths = []
@@ -140,5 +160,6 @@ if __name__ == '__main__':
     print("\nUtility script for parsing json into feature array\n")
     t0 = time.time()
     #fileList(json_path)
+    print(length('C'))
     t1 = time.time()
     print("Process completed in {0:.5f} seconds for {1} files.".format(t1-t0, len(json_list)))
