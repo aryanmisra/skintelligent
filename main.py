@@ -126,7 +126,7 @@ def train(mode):
         datetime.now().strftime("%Y%m%d-%H%M%S"),
     )
     class_weights={
-        0: len(utils.json_list)/utils.length('A')*2,  # A
+        0: len(utils.json_list)/utils.length('A'),  # A
         1: len(utils.json_list)/utils.length('C'),  # C
         2: len(utils.json_list)/utils.length('P'),  # P
         3: len(utils.json_list)/utils.length('U'),  # U
