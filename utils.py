@@ -3,7 +3,6 @@ import numpy as np
 import os
 import time
 import tensorflow as tf
-import main
 #utility package for main train script
 #parsing jsons into array format
 
@@ -148,7 +147,7 @@ def zoom(x: tf.Tensor) -> tf.Tensor:
         boxes[i] = [x1, y1, x2, y2]
 
     def random_crop(img):
-        crops = tf.image.crop_and_resize([tf.squeeze(img)], boxes=boxes, box_indices=np.zeros(len(scales)), crop_size=(main.input_x, main.input_y))
+        crops = tf.image.crop_and_resize([tf.squeeze(img)], boxes=boxes, box_indices=np.zeros(len(scales)), crop_size=(300,300))
         return crops[tf.random.uniform(shape=[], minval=0, maxval=len(scales), dtype=tf.int32)]
 
     choice = tf.random.uniform(shape=[], minval=0., maxval=1., dtype=tf.float32)
