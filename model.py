@@ -98,7 +98,7 @@ def CNN_model(x,y,z):
     base_model = tf.keras.applications.MobileNetV2(input_shape=(x, y, z),
                                                include_top=False,
                                                weights='imagenet')
-    for layer in base_model.layers[:-13]:
+    for layer in base_model.layers[:-23]:
         layer.trainable = False
     
     model = tf.keras.Sequential([
@@ -121,7 +121,7 @@ def CNN_model_sec(x,y,z):
     base_model = tf.keras.applications.MobileNetV2(input_shape=(x, y, z),
                                                include_top=False,
                                                weights='imagenet')
-    for layer in base_model.layers[:-13]:
+    for layer in base_model.layers[:-23]:
         layer.trainable = False
    
     model = tf.keras.Sequential([

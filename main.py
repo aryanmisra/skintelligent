@@ -11,8 +11,8 @@ from datetime import datetime
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from model import CNN_model, CNN_model_sec
 AUTOTUNE = tf.data.experimental.AUTOTUNE
-input_x = 224
-input_y = 224
+input_x = 300
+input_y = 300
 batch_size = 16
 epochs = 250
 augmentations = [utils.flip, utils.color, utils.zoom, utils.rotate]
@@ -96,10 +96,10 @@ def train(mode):
     #for f in augmentations:
         
     #    image_ds = image_ds.map(f, num_parallel_calls=4)
-    for f in augmentations:
+    # for f in augmentations:
 
-        image_ds = image_ds.map(lambda x: tf.cond(tf.random.uniform([], 0, 1) > 0.8, lambda: f(x), lambda: x), num_parallel_calls=4)
-    image_ds = image_ds.map(maprange, num_parallel_calls=4)
+    #     image_ds = image_ds.map(lambda x: tf.cond(tf.random.uniform([], 0, 1) > 0.8, lambda: f(x), lambda: x), num_parallel_calls=4)
+    # image_ds = image_ds.map(maprange, num_parallel_calls=4)
     
     label_ds = tf.data.Dataset.from_tensor_slices(tf.cast(labels, tf.int64))
     image_label_ds = tf.data.Dataset.zip((image_ds, label_ds))
