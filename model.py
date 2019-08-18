@@ -1,7 +1,7 @@
 from tensorflow import keras
 from tensorflow.keras import layers
 import tensorflow as tf
-learn_rate = 0.00146
+learn_rate = 0.001
 """
 def CNN_model(x,y,z):
     inputs = keras.Input(shape=(x,y,z), name='input')
@@ -134,7 +134,7 @@ def CNN_model_sec(x,y,z):
         layers.Dense(2, activation='softmax')
         ])
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=learn_rate, beta_2=0.9999, epsilon=1e-08),
-        loss='categorical_crossentropy',
+        loss='binary_crossentropy',
         metrics=['accuracy'])
     
     return model
