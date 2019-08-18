@@ -12,17 +12,17 @@ import json
 t0 = time.time()
     
 print("Loading model..")
-model = keras.models.load_model('saves/model_N_37.h5')
+model = keras.models.load_model('saves/model_N_23.h5')
 
-model_sec_a = keras.models.load_model('saves/model_A_1.h5', compile=False)
+model_sec_a = keras.models.load_model('saves/backup/model_A_1.h5', compile=False)
 
-model_sec_c = keras.models.load_model('saves/model_C_6.h5', compile=False)
+model_sec_c = keras.models.load_model('saves/backup/model_C_6.h5', compile=False)
 
-model_sec_p = keras.models.load_model('saves/model_P_5.h5', compile=False)
+model_sec_p = keras.models.load_model('saves/backup/model_P_5.h5', compile=False)
 
-model_sec_u = keras.models.load_model('saves/model_U_5.h5', compile=False)
+model_sec_u = keras.models.load_model('saves/backup/model_U_5.h5', compile=False)
 
-model_sec_w = keras.models.load_model('saves/model_W_6.h5', compile=False)
+model_sec_w = keras.models.load_model('saves/backup/model_W_6.h5', compile=False)
 
 t1 = time.time()
 print("Models loaded in {0:.5f} seconds.".format(t1-t0))

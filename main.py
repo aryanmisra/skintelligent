@@ -11,8 +11,8 @@ from datetime import datetime
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from model import CNN_model, CNN_model_sec
 AUTOTUNE = tf.data.experimental.AUTOTUNE
-input_x = 300
-input_y = 300
+input_x = 224
+input_y = 224
 batch_size = 16
 epochs = 250
 augmentations = [utils.flip, utils.color, utils.zoom, utils.rotate]
