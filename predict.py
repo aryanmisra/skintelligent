@@ -12,7 +12,7 @@ import json
 t0 = time.time()
     
 print("Loading model..")
-model = keras.models.load_model('saves/model_N_10.h5')
+model = keras.models.load_model('saves/model_N_37.h5')
 
 model_sec_a = keras.models.load_model('saves/model_A_1.h5', compile=False)
 
@@ -28,10 +28,10 @@ t1 = time.time()
 print("Models loaded in {0:.5f} seconds.".format(t1-t0))
 try:
     # while 1:
-    im_path = input("Image path: ")
+    #im_path = input("Image path: ")
     print("Loading image..")
     # img = Image.open('images/%s' % im_path)
-    img = Image.open('../images/acne/3_left.png')
+    img = Image.open('../images/acne/3_right.png')
     img = img.resize((main.input_x,main.input_y), Image.ANTIALIAS)
     img = np.array(img) / 255.0
     img = np.reshape(img,[1,main.input_x,main.input_y,3])
@@ -105,7 +105,7 @@ try:
         {"label": "U", "intensity": out[3]}, 
         {"label": "W", "intensity": out[4]}]}
 
-    with open('result_%s.json' % im_path, 'w') as fp:
-        json.dump(out_dict, fp)
+    # with open('result_%s.json' % im_path, 'w') as fp:
+    #     json.dump(out_dict, fp)
 except KeyboardInterrupt:
     sys.exit()

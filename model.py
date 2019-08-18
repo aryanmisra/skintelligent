@@ -1,7 +1,7 @@
 from tensorflow import keras
 from tensorflow.keras import layers
 import tensorflow as tf
-learn_rate = 0.0146
+learn_rate = 0.00146
 """
 def CNN_model(x,y,z):
     inputs = keras.Input(shape=(x,y,z), name='input')
@@ -57,64 +57,62 @@ def CNN_model_sec(x,y,z):
         metrics=['accuracy'])
     return model
 """
-"""
-def dCNN_model_sec(x,y,z):
-    inputs = keras.Input(shape=(x,y,z), name='input')
-    x = layers.Conv2D(32, (3,3), activation='relu', padding='same', name='Conv1_1')(inputs)
-    x = layers.Conv2D(32, (3,3), activation='relu', padding='same', name='Conv1_2')(x)
-    x = layers.MaxPooling2D((2,2), name='pool1')(x)
+# def CNN_model_sec(x,y,z):
+#     inputs = keras.Input(shape=(x,y,z), name='input')
+#     x = layers.Conv2D(32, (3,3), activation='relu', padding='same', name='Conv1_1')(inputs)
+#     x = layers.Conv2D(32, (3,3), activation='relu', padding='same', name='Conv1_2')(x)
+#     x = layers.MaxPooling2D((2,2), name='pool1')(x)
     
-    x = layers.SeparableConv2D(64, (3,3), activation='relu', padding='same', name='Conv2_1')(x)
-    x = layers.SeparableConv2D(64, (3,3), activation='relu', padding='same', name='Conv2_2')(x)
-    x = layers.MaxPooling2D((2,2), name='pool2')(x)
+#     x = layers.SeparableConv2D(64, (3,3), activation='relu', padding='same', name='Conv2_1')(x)
+#     x = layers.SeparableConv2D(64, (3,3), activation='relu', padding='same', name='Conv2_2')(x)
+#     x = layers.MaxPooling2D((2,2), name='pool2')(x)
     
-    x = layers.SeparableConv2D(128, (3,3), activation='relu', padding='same', name='Conv3_1')(x)
-    x = layers.BatchNormalization(name='bn1')(x)
-    x = layers.SeparableConv2D(128, (3,3), activation='relu', padding='same', name='Conv3_2')(x)
-    x = layers.BatchNormalization(name='bn2')(x)
-    x = layers.SeparableConv2D(128, (3,3), activation='relu', padding='same', name='Conv3_3')(x)
-    x = layers.MaxPooling2D((2,2), name='pool3')(x)
+#     x = layers.SeparableConv2D(128, (3,3), activation='relu', padding='same', name='Conv3_1')(x)
+#     x = layers.BatchNormalization(name='bn1')(x)
+#     x = layers.SeparableConv2D(128, (3,3), activation='relu', padding='same', name='Conv3_2')(x)
+#     x = layers.BatchNormalization(name='bn2')(x)
+#     x = layers.SeparableConv2D(128, (3,3), activation='relu', padding='same', name='Conv3_3')(x)
+#     x = layers.MaxPooling2D((2,2), name='pool3')(x)
     
-    x = layers.SeparableConv2D(256, (3,3), activation='relu', padding='same', name='Conv4_1')(x)
-    x = layers.BatchNormalization(name='bn3')(x)
-    x = layers.SeparableConv2D(256, (3,3), activation='relu', padding='same', name='Conv4_2')(x)
-    x = layers.BatchNormalization(name='bn4')(x)
-    x = layers.SeparableConv2D(256, (3,3), activation='relu', padding='same', name='Conv4_3')(x)
-    x = layers.MaxPooling2D((2,2), name='pool4')(x)
+#     x = layers.SeparableConv2D(256, (3,3), activation='relu', padding='same', name='Conv4_1')(x)
+#     x = layers.BatchNormalization(name='bn3')(x)
+#     x = layers.SeparableConv2D(256, (3,3), activation='relu', padding='same', name='Conv4_2')(x)
+#     x = layers.BatchNormalization(name='bn4')(x)
+#     x = layers.SeparableConv2D(256, (3,3), activation='relu', padding='same', name='Conv4_3')(x)
+#     x = layers.MaxPooling2D((2,2), name='pool4')(x)
     
-    x = layers.Flatten(name='flatten')(x)
-    x = layers.Dense(512, activation='relu', name='fc1')(x)
-    x = layers.Dropout(0.3, name='dropout1')(x)
-    x = layers.Dense(256, activation='relu', name='fc2')(x)
-    x = layers.Dropout(0.3, name='dropout2')(x)
-    outputs = layers.Dense(2, activation='sigmoid', name='fc3')(x)
+#     x = layers.Flatten(name='flatten')(x)
+#     x = layers.Dense(512, activation='relu', name='fc1')(x)
+#     x = layers.Dropout(0.3, name='dropout1')(x)
+#     x = layers.Dense(256, activation='relu', name='fc2')(x)
+#     x = layers.Dropout(0.3, name='dropout2')(x)
+#     outputs = layers.Dense(2, activation='sigmoid', name='fc3')(x)
 
-    model = keras.Model(inputs, outputs, name='cnn_model')
-    model.compile(optimizer=keras.optimizers.Adam(learn_rate),
-        loss='binary_crossentropy',
-        metrics=['accuracy'])
+#     model = keras.Model(inputs, outputs, name='cnn_model')
+#     model.compile(optimizer=keras.optimizers.Adam(learn_rate),
+#         loss='categorical_crossentropy',
+#         metrics=['accuracy'])
 
-    return model
-"""
+#     return model
 def CNN_model(x,y,z):
     base_model = tf.keras.applications.MobileNetV2(input_shape=(x, y, z),
                                                include_top=False,
                                                weights='imagenet')
-    for layer in base_model.layers[:-7]:
+    for layer in base_model.layers[:-13]:
         layer.trainable = False
     
     model = tf.keras.Sequential([
         base_model,
         layers.GlobalAveragePooling2D(),
-        layers.Dense(128, activation='relu'),
-        layers.Dropout(0.25),
-        layers.Dense(64, activation='relu'),
-        layers.Dropout(0.3),
+        #layers.Dense(128, activation='relu'),
+        #layers.Dropout(0.25),
+        #layers.Dense(64, activation='relu'),
+        #layers.Dropout(0.3),
         
         layers.Dense(5, activation='softmax')
         ])
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=learn_rate, beta_2=0.9999, epsilon=1e-08),
-        loss='binary_crossentropy',
+        loss='categorical_crossentropy',
         metrics=['accuracy'])
     
     return model
@@ -123,21 +121,20 @@ def CNN_model_sec(x,y,z):
     base_model = tf.keras.applications.MobileNetV2(input_shape=(x, y, z),
                                                include_top=False,
                                                weights='imagenet')
-    for layer in base_model.layers[:-7]:
+    for layer in base_model.layers[:-13]:
         layer.trainable = False
    
     model = tf.keras.Sequential([
         base_model,
         layers.GlobalAveragePooling2D(),
-        layers.Dense(128, activation='relu'),
-        layers.Dropout(0.25),
-        layers.Dense(64, activation='relu'),
-        layers.Dropout(0.3),
-        
+        #layers.Dense(128, activation='relu'),
+        #layers.Dropout(0.25),
+        #layers.Dense(64, activation='relu'),
+        #layers.Dropout(0.3),
         layers.Dense(2, activation='softmax')
         ])
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=learn_rate, beta_2=0.9999, epsilon=1e-08),
-        loss='binary_crossentropy',
+        loss='categorical_crossentropy',
         metrics=['accuracy'])
     
     return model

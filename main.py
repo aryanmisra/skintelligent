@@ -14,7 +14,7 @@ AUTOTUNE = tf.data.experimental.AUTOTUNE
 input_x = 224
 input_y = 224
 batch_size = 16
-epochs = 500
+epochs = 250
 augmentations = [utils.flip, utils.color, utils.zoom, utils.rotate]
 parser = argparse.ArgumentParser()
 parser.add_argument("--cont", '-c', help="resume training",
@@ -126,12 +126,13 @@ def train(mode):
         datetime.now().strftime("%Y%m%d-%H%M%S"),
     )
     class_weights={
-        0: len(utils.json_list)/utils.length('A'),  # A
+        0: len(utils.json_list)/utils.length('A')*2,  # A
         1: len(utils.json_list)/utils.length('C'),  # C
         2: len(utils.json_list)/utils.length('P'),  # P
         3: len(utils.json_list)/utils.length('U'),  # U
         4: len(utils.json_list)/utils.length('W')  # W
     }
+    print(class_weights)
     #os.mkdir(logdir)
     callbacks = [
     #keras.callbacks.EarlyStopping(monitor='loss', 
