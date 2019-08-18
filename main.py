@@ -145,7 +145,7 @@ def train(mode):
         monitor='val_loss',
         verbose=1),
     #keras.callbacks.TensorBoard(log_dir=logdir,histogram_freq=1),
-    keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.2,
+    keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.5,
         patience=2, min_lr=0.000001)
     ]
     
