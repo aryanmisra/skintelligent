@@ -12,7 +12,7 @@ import json
 t0 = time.time()
     
 print("Loading model..")
-model = keras.models.load_model('saves/model_N_23.h5')
+model = keras.models.load_model('saves/model_N_4.h5')
 
 model_sec_a = keras.models.load_model('saves/backup/model_A_1.h5', compile=False)
 
@@ -31,7 +31,7 @@ try:
     #im_path = input("Image path: ")
     print("Loading image..")
     # img = Image.open('images/%s' % im_path)
-    img = Image.open('../images/acne/3_right.png')
+    img = Image.open('../images/acne/3_left.png')
     img = img.resize((main.input_x,main.input_y), Image.ANTIALIAS)
     img = np.array(img) / 255.0
     img = np.reshape(img,[1,main.input_x,main.input_y,3])

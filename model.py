@@ -131,7 +131,7 @@ def CNN_model_sec(x,y,z):
         layers.Dropout(0.1),
         layers.Dense(64, activation='relu'),
         layers.Dropout(0.1),
-        layers.Dense(2, activation='softmax')
+        layers.Dense(2, activation='sigmoid')
         ])
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=learn_rate, beta_2=0.9999, epsilon=1e-08),
         loss='binary_crossentropy',

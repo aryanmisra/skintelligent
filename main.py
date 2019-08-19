@@ -93,13 +93,13 @@ def train(mode):
     path_ds = tf.data.Dataset.from_tensor_slices(image_path_list)
     image_ds = path_ds.map(preprocess_load_image, num_parallel_calls=AUTOTUNE)
     
-    #for f in augmentations:
+    # for f in augmentations:
         
     #    image_ds = image_ds.map(f, num_parallel_calls=4)
-    # for f in augmentations:
+    for f in augmentations:
 
-    #     image_ds = image_ds.map(lambda x: tf.cond(tf.random.uniform([], 0, 1) > 0.8, lambda: f(x), lambda: x), num_parallel_calls=4)
-    # image_ds = image_ds.map(maprange, num_parallel_calls=4)
+        image_ds = image_ds.map(lambda x: tf.cond(tf.random.uniform([], 0, 1) > 0.9, lambda: f(x), lambda: x), num_parallel_calls=4)
+    image_ds = image_ds.map(maprange, num_parallel_calls=4)
     
     label_ds = tf.data.Dataset.from_tensor_slices(tf.cast(labels, tf.int64))
     image_label_ds = tf.data.Dataset.zip((image_ds, label_ds))
@@ -141,11 +141,11 @@ def train(mode):
     #    verbose=1),
     keras.callbacks.ModelCheckpoint(
         filepath=('saves/model_%s_{epoch}.h5' % (mode)),
-        save_best_only=True,
+        save_best_only=False,
         monitor='val_loss',
         verbose=1),
     #keras.callbacks.TensorBoard(log_dir=logdir,histogram_freq=1),
-    keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.5,
+    keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5,
         patience=2, min_lr=0.000001)
     ]
     
