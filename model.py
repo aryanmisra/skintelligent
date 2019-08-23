@@ -128,9 +128,9 @@ def CNN_model_sec(x,y,z):
         base_model,
         layers.GlobalAveragePooling2D(),
         layers.Dense(128, activation='relu'),
-        layers.Dropout(0.4),
+        layers.Dropout(0.5),
         layers.Dense(64, activation='relu'),
-        layers.Dropout(0.4),
+        layers.Dropout(0.5),
         layers.Dense(2, activation='sigmoid')
         ])
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=learn_rate, beta_2=0.9999, epsilon=1e-08),
