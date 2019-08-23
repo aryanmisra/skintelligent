@@ -132,6 +132,7 @@ def train(mode):
         3: len(utils.json_list)/utils.length('U'),  # U
         4: len(utils.json_list)/utils.length('W')  # W
     }
+    
     print(class_weights)
     #os.mkdir(logdir)
     callbacks = [
@@ -141,7 +142,7 @@ def train(mode):
     #    verbose=1),
     keras.callbacks.ModelCheckpoint(
         filepath=('saves/model_%s_{epoch}.h5' % (mode)),
-        save_best_only=False,
+        save_best_only=True,
         monitor='val_loss',
         verbose=1),
     #keras.callbacks.TensorBoard(log_dir=logdir,histogram_freq=1),
