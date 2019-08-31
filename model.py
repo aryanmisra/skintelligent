@@ -95,19 +95,19 @@ def CNN_model_sec(x,y,z):
 
 #     return model
 def CNN_model(x,y,z):
-    base_model = tf.keras.applications.MobileNetV2(input_shape=(x, y, z),
+    base_model = tf.keras.applications.ResNet50(input_shape=(x, y, z),
                                                include_top=False,
                                                weights='imagenet')
-    for layer in base_model.layers[:-23]:
+    for layer in base_model.layers[:-30]:
         layer.trainable = False
     
     model = tf.keras.Sequential([
         base_model,
         layers.GlobalAveragePooling2D(),
-        layers.Dense(128, activation='relu'),
-        layers.Dropout(0.1),
+        layers.Dense(256, activation='relu'),
+        layers.Dropout(0.3),
         layers.Dense(64, activation='relu'),
-        layers.Dropout(0.1),
+        layers.Dropout(0.3),
         
         layers.Dense(5, activation='softmax')
         ])
@@ -118,7 +118,7 @@ def CNN_model(x,y,z):
     return model
 
 def CNN_model_sec(x,y,z):
-    base_model = tf.keras.applications.MobileNetV2(input_shape=(x, y, z),
+    base_model = tf.keras.applications.ResNet50(input_shape=(x, y, z),
                                                include_top=False,
                                                weights='imagenet')
     for layer in base_model.layers[:-23]:
