@@ -98,7 +98,7 @@ def train(mode):
     #    image_ds = image_ds.map(f, num_parallel_calls=4)
     for f in augmentations:
 
-        image_ds = image_ds.map(lambda x: tf.cond(tf.random.uniform([], 0, 1) > 0.9, lambda: f(x), lambda: x), num_parallel_calls=4)
+        image_ds = image_ds.map(lambda x: tf.cond(tf.random.uniform([], 0, 1) > 0.8, lambda: f(x), lambda: x), num_parallel_calls=4)
     image_ds = image_ds.map(maprange, num_parallel_calls=4)
     
     label_ds = tf.data.Dataset.from_tensor_slices(tf.cast(labels, tf.int64))
