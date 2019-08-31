@@ -98,14 +98,12 @@ def CNN_model(x,y,z):
     base_model = tf.keras.applications.ResNet50(input_shape=(x, y, z),
                                                include_top=False,
                                                weights='imagenet')
-    for layer in base_model.layers[:-30]:
+    for layer in base_model.layers[:-23]:
         layer.trainable = False
     
     model = tf.keras.Sequential([
         base_model,
         layers.GlobalAveragePooling2D(),
-        layers.Dense(256, activation='relu'),
-        layers.Dropout(0.3),
         layers.Dense(64, activation='relu'),
         layers.Dropout(0.3),
         
@@ -127,8 +125,6 @@ def CNN_model_sec(x,y,z):
     model = tf.keras.Sequential([
         base_model,
         layers.GlobalAveragePooling2D(),
-        layers.Dense(128, activation='relu'),
-        layers.Dropout(0.5),
         layers.Dense(64, activation='relu'),
         layers.Dropout(0.5),
         layers.Dense(2, activation='sigmoid')
