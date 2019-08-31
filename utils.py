@@ -41,7 +41,7 @@ def json_process(constraint):
                         Y[i,4] = annotation[x][j]['intensity'] 
     if constraint:
         Y[Y == 1] = 0
-        Y[Y == 2] = 1
+        Y[Y == 2] = 0.5
         Y[Y == 3] = 1
         #Y = (tf.cast(Y, tf.int64))# - 1.0) / 3.0
         return Y
@@ -73,7 +73,7 @@ def json_process_se(cat):
     new_Y = np.zeros((len(Y), 2))
     for i in range(len(Y)):
         if Y[i,0] == 2:
-            new_Y[i,0] = 1
+            new_Y[i,0] = 0.5
             new_P.append(paths[i])
         if Y[i,0] == 3:
             new_Y[i,1] = 1
