@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\aryan\\Anaconda3\\envs\\tf2gpu\\python.exe",
+    "python.pythonPath": "/home/aryan/anaconda3/envs/tf_gpu/bin/python",
     "python.linting.enabled": true
 }
