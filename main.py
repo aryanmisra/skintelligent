@@ -141,7 +141,7 @@ def train(mode):
     #    patience=10,
     #    verbose=1),
     keras.callbacks.ModelCheckpoint(
-        filepath=('saves/model_%s_{epoch}.h5' % (mode)),
+        filepath=('saves/model_%s.h5' % (mode)),
         save_best_only=True,
         monitor='val_loss',
         verbose=1),
