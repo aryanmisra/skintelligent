@@ -109,6 +109,7 @@ def image_paths():
             annotation = json.loads(json_data.read())
             del annotation['labels']
             #paths.append(annotation['filename'].split('/', 1)[-1])
+            print(annotation['filename'])
             if os.path.exists(annotation['filename']):
                 paths.append(annotation['filename'])
     return paths
