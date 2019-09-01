@@ -110,7 +110,8 @@ def image_paths():
             del annotation['labels']
             #paths.append(annotation['filename'].split('/', 1)[-1])
             print(annotation['filename'])
-            if os.path.exists(annotation['filename']):
+            temp_fn = "../images/"+annotation['filename']
+            if os.path.exists(temp_fn):
                 paths.append(annotation['filename'])
     return paths
 
