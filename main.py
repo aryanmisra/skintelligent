@@ -31,12 +31,12 @@ def plot_images(dataset, n_images, samples_per_image):
     plt.figure()
     plt.imshow(output)
     plt.show()
-    
+
 def scheduler(epoch):
   if epoch < 10:
     return learn_rate
   else:
-    return learn_rate* tf.math.exp(0.1 * (10 - epoch))
+    return learn_rate* np.e(0.1 * (10 - epoch))
 
 def visualization(history,mode):
 

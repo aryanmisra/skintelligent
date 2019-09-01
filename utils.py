@@ -158,7 +158,6 @@ def zoom(x: tf.Tensor) -> tf.Tensor:
 if __name__ == '__main__':
     print("\nUtility script for parsing json into feature array\n")
     t0 = time.time()
-    #fileList(json_path)
-    print(length('C'))
+    json_process_se('A')
     t1 = time.time()
     print("Process completed in {0:.5f} seconds for {1} files.".format(t1-t0, len(json_list)))
