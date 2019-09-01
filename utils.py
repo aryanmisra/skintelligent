@@ -109,7 +109,8 @@ def image_paths():
             annotation = json.loads(json_data.read())
             del annotation['labels']
             #paths.append(annotation['filename'].split('/', 1)[-1])
-            paths.append(annotation['filename'])
+            if os.path.exists(annotation['filename']):
+                paths.append(annotation['filename'])
     return paths
 
 def scale(x, out_range=(-1, 1)):
@@ -158,6 +159,6 @@ def zoom(x: tf.Tensor) -> tf.Tensor:
 if __name__ == '__main__':
     print("\nUtility script for parsing json into feature array\n")
     t0 = time.time()
-    json_process_se('A')
+    image_paths()
     t1 = time.time()
     print("Process completed in {0:.5f} seconds for {1} files.".format(t1-t0, len(json_list)))
