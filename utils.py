@@ -26,19 +26,21 @@ def json_process(constraint):
     for i in range(len(json_list)):
         with open (json_list[i]) as json_data:
             annotation = json.loads(json_data.read())
+            temp_fn = "../images/"+annotation['filename']
             del annotation['filename']
-            for x in annotation:
-                for j in range(0,5):
-                    if annotation[x][j]['label'] == 'A':
-                        Y[i,0] = annotation[x][j]['intensity']
-                    if annotation[x][j]['label'] == 'C':
-                        Y[i,1] = annotation[x][j]['intensity']
-                    if annotation[x][j]['label'] == 'P':
-                        Y[i,2] = annotation[x][j]['intensity']
-                    if annotation[x][j]['label'] == 'U':
-                        Y[i,3] = annotation[x][j]['intensity']
-                    if annotation[x][j]['label'] == 'W':
-                        Y[i,4] = annotation[x][j]['intensity'] 
+            if os.path.exists(temp_fn):
+                for x in annotation:
+                    for j in range(0,5):
+                        if annotation[x][j]['label'] == 'A':
+                            Y[i,0] = annotation[x][j]['intensity']
+                        if annotation[x][j]['label'] == 'C':
+                            Y[i,1] = annotation[x][j]['intensity']
+                        if annotation[x][j]['label'] == 'P':
+                            Y[i,2] = annotation[x][j]['intensity']
+                        if annotation[x][j]['label'] == 'U':
+                            Y[i,3] = annotation[x][j]['intensity']
+                        if annotation[x][j]['label'] == 'W':
+                            Y[i,4] = annotation[x][j]['intensity'] 
     if constraint:
         Y[Y == 1] = 0
         Y[Y == 2] = 1
@@ -73,7 +75,7 @@ def json_process_se(cat):
     new_Y = np.zeros((len(Y), 2))
     for i in range(len(Y)):
         if Y[i,0] == 2:
-            new_Y[i,0] = 0.5
+            new_Y[i,0] = 0
             new_P.append(paths[i])
         if Y[i,0] == 3:
             new_Y[i,1] = 1
