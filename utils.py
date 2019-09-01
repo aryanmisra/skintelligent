@@ -44,7 +44,7 @@ def json_process(constraint):
                         if annotation[x][j]['label'] == 'W':
                             Y[i-count,4] = annotation[x][j]['intensity'] 
             else:
-                Y = np.delete(Y,(i),axis=0)
+                Y = np.delete(Y,(i-count),axis=0)
                 count +=1
     if constraint:
         Y[Y == 1] = 0
