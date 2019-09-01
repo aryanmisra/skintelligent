@@ -9,7 +9,7 @@ import argparse
 from datetime import datetime
 #tf.enable_eager_execution()
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-from model import CNN_model, CNN_model_sec
+from model import CNN_model, CNN_model_sec, learn_rate
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 input_x = 224
 input_y = 224
@@ -31,6 +31,12 @@ def plot_images(dataset, n_images, samples_per_image):
     plt.figure()
     plt.imshow(output)
     plt.show()
+    
+def scheduler(epoch):
+  if epoch < 10:
+    return learn_rate
+  else:
+    return learn_rate* tf.math.exp(0.1 * (10 - epoch))
 
 def visualization(history,mode):
 
@@ -146,8 +152,8 @@ def train(mode):
         monitor='val_loss',
         verbose=1),
     #keras.callbacks.TensorBoard(log_dir=logdir,histogram_freq=1),
-    keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5,
-        patience=2, min_lr=0.000001)
+    keras.callbacks.LearningRateScheduler(scheduler)
+    
     ]
     
     print(net.summary())
