@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy as np
 from tensorflow import keras
 from utils import image_paths, json_process, json_process_se
 import matplotlib.pyplot as plt
