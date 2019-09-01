@@ -18,7 +18,7 @@ def updateJsonFile(json_file):
 
     ## Working with buffered content
     tmp = data["filename"] 
-    path = "RS_Clean-images/Split_updated-naming-conversion/" + tmp
+    path = "RS_Clean-images/Split_updated-naming-convention/" + tmp
     data["filename"] = path
 
     ## Save our changes to JSON file
@@ -27,6 +27,7 @@ def updateJsonFile(json_file):
     jsonFile.close()
 
 jsons = fileList(json_path)
+print(len(jsons))
 for file in jsons:
     updateJsonFile(file)
     print(file)

@@ -22,25 +22,30 @@ json_list = fileList(json_path)
 #ran into a bit of an effiecency problem due to all jsons not having labels in same order
 #now we have to iterate through each json, looking for specific labels to drop into the array, rather than directly extracting from inside the json to array
 def json_process(constraint):
+    count = 0
     Y = np.zeros([len(json_list), 5])
     for i in range(len(json_list)):
         with open (json_list[i]) as json_data:
             annotation = json.loads(json_data.read())
             temp_fn = "../images/"+annotation['filename']
             del annotation['filename']
+            print(temp_fn)
             if os.path.exists(temp_fn):
                 for x in annotation:
                     for j in range(0,5):
                         if annotation[x][j]['label'] == 'A':
-                            Y[i,0] = annotation[x][j]['intensity']
+                            Y[i-count,0] = annotation[x][j]['intensity']
                         if annotation[x][j]['label'] == 'C':
-                            Y[i,1] = annotation[x][j]['intensity']
+                            Y[i-count,1] = annotation[x][j]['intensity']
                         if annotation[x][j]['label'] == 'P':
-                            Y[i,2] = annotation[x][j]['intensity']
+                            Y[i-count,2] = annotation[x][j]['intensity']
                         if annotation[x][j]['label'] == 'U':
-                            Y[i,3] = annotation[x][j]['intensity']
+                            Y[i-count,3] = annotation[x][j]['intensity']
                         if annotation[x][j]['label'] == 'W':
-                            Y[i,4] = annotation[x][j]['intensity'] 
+                            Y[i-count,4] = annotation[x][j]['intensity'] 
+            else:
+                Y = np.delete(Y,(i),axis=0)
+                count +=1
     if constraint:
         Y[Y == 1] = 0
         Y[Y == 2] = 1
@@ -55,9 +60,11 @@ def json_process(constraint):
         return Y
 
 def json_process_se(cat):
+
     Y = json_process(False)
     paths = image_paths()
-    
+    print(Y.shape)
+    print(len(paths))
     new_P = []
     if cat == 'A':
         Y = np.delete(Y, [1,2,3,4], axis=1)
@@ -76,8 +83,10 @@ def json_process_se(cat):
     for i in range(len(Y)):
         if Y[i,0] == 2:
             new_Y[i,0] = 0
+            print(i)
             new_P.append(paths[i])
         if Y[i,0] == 3:
+            print(i)
             new_Y[i,1] = 1
             new_P.append(paths[i])
     new_Y = new_Y[~np.all(new_Y == 0, axis=1)]
@@ -111,7 +120,6 @@ def image_paths():
             annotation = json.loads(json_data.read())
             del annotation['labels']
             #paths.append(annotation['filename'].split('/', 1)[-1])
-            print(annotation['filename'])
             temp_fn = "../images/"+annotation['filename']
             if os.path.exists(temp_fn):
                 paths.append(annotation['filename'])
@@ -163,6 +171,6 @@ def zoom(x: tf.Tensor) -> tf.Tensor:
 if __name__ == '__main__':
     print("\nUtility script for parsing json into feature array\n")
     t0 = time.time()
-    image_paths()
+    json_process_se('C')
     t1 = time.time()
     print("Process completed in {0:.5f} seconds for {1} files.".format(t1-t0, len(json_list)))
