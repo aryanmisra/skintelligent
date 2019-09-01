@@ -37,7 +37,7 @@ def scheduler(epoch):
   if epoch < 10:
     return learn_rate
   else:
-    return learn_rate* np.e(0.1 * (10 - epoch))
+    return 0.000001
 
 def visualization(history,mode):
 
