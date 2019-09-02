@@ -63,8 +63,6 @@ def json_process_se(cat):
 
     Y = json_process(False)
     paths = image_paths()
-    print(Y.shape)
-    print(len(paths))
     new_P = []
     if cat == 'A':
         Y = np.delete(Y, [1,2,3,4], axis=1)
@@ -79,15 +77,16 @@ def json_process_se(cat):
     else:
         raise Exception('This function should only recieve an input of either A, C, P, U, or W')
 
-    new_Y = np.zeros((len(Y), 2))
+    new_Y = np.zeros((len(Y), 3))
     for i in range(len(Y)):
+        if Y[i,0] == 0:
+            new_Y[i,0] = 1
+            new_P.append(paths[i])
         if Y[i,0] == 2:
-            new_Y[i,0] = 0
-            print(i)
+            new_Y[i,1] = 1
             new_P.append(paths[i])
         if Y[i,0] == 3:
-            print(i)
-            new_Y[i,1] = 1
+            new_Y[i,2] = 1
             new_P.append(paths[i])
     new_Y = new_Y[~np.all(new_Y == 0, axis=1)]
     return new_Y, new_P

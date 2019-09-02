@@ -127,10 +127,10 @@ def CNN_model_sec(x,y,z):
         layers.GlobalAveragePooling2D(),
         layers.Dense(64, activation='relu'),
         layers.Dropout(0.5),
-        layers.Dense(2, activation='sigmoid')
+        layers.Dense(3, activation='softmax')
         ])
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=learn_rate, beta_2=0.9999, epsilon=1e-08),
-        loss='binary_crossentropy',
+        loss='categorical_crossentropy',
         metrics=['accuracy'])
     
     return model
