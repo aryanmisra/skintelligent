@@ -3,6 +3,7 @@ import numpy as np
 import os
 import time
 import tensorflow as tf
+import pandas as pd
 #utility package for main train script
 #parsing jsons into array format
 
@@ -90,7 +91,13 @@ def json_process_se(cat):
             new_P.append(paths[i])
     new_Y = new_Y[~np.all(new_Y == 0, axis=1)]
     return new_Y, new_P
-        
+
+def csv_process(contraint):
+    data = pd.read_csv("xyz.csv")
+    #data.drop xyz
+    #crop dims = 
+    
+
 def length(cat):
     Y = json_process(True)
     if cat == 'A':

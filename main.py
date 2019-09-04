@@ -140,6 +140,17 @@ def train(mode):
         4: len(utils.json_list)/utils.length('W')  # W
     }
     
+    labels_1 = labels[0].count(1)
+    labels_2 = labels[1].count(1)
+    labels_3 = labels[2].count(1)
+
+    class_weights_se={
+        0: len(utils.json_list)/labels_1,  # A
+        1: len(utils.json_list)/labels_2,  # C
+        2: len(utils.json_list)/labels_3  # P
+    }
+    
+    
     print(class_weights)
     #os.mkdir(logdir)
     callbacks = [
