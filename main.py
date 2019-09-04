@@ -140,9 +140,9 @@ def train(mode):
         4: len(utils.json_list)/utils.length('W')  # W
     }
     
-    labels_1 = labels[0].count(1)
-    labels_2 = labels[1].count(1)
-    labels_3 = labels[2].count(1)
+    labels_1 = list(labels[0]).count(1)
+    labels_2 = list(labels[1]).count(1)
+    labels_3 = list(labels[2]).count(1)
 
     class_weights_se={
         0: len(utils.json_list)/labels_1,  # A
