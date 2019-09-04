@@ -149,6 +149,7 @@ def train(mode):
         1: len(utils.json_list)/labels_2,  # C
         2: len(utils.json_list)/labels_3  # P
     }
+    print(class_weights_se)
     
     
     print(class_weights)

@@ -104,7 +104,7 @@ def CNN_model(x,y,z):
         base_model,
         layers.GlobalAveragePooling2D(),
         layers.Dense(64, activation='relu'),
-        layers.Dropout(0.3),
+        layers.Dropout(0.5),
         
         layers.Dense(5, activation='softmax')
         ])
