@@ -115,7 +115,7 @@ def CNN_model(x,y,z):
     return model
 
 def CNN_model_sec(x,y,z):
-    base_model = tf.keras.applications.MobileNetV2(input_shape=(x, y, z),
+    base_model = tf.keras.applications.ResNet50(input_shape=(x, y, z),
                                                include_top=False)
     # for layer in base_model.layers[:-23]:
     #     layer.trainable = False
@@ -124,7 +124,7 @@ def CNN_model_sec(x,y,z):
         base_model,
         layers.GlobalAveragePooling2D(),
         layers.Dense(64, activation='relu'),
-        layers.Dropout(0.5),
+        layers.Dropout(0.35),
         layers.Dense(3, activation='softmax')
         ])
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=learn_rate, beta_2=0.9999, epsilon=1e-08),
