@@ -143,7 +143,7 @@ def train(mode):
     labels_1 = list(labels[0]).count(1)
     labels_2 = list(labels[1]).count(1)
     labels_3 = list(labels[2]).count(1)
-    print(labels[-1][0])
+    print(labels[0,:])
     print(labels[1])
     print(labels[2])
     class_weights_se={
