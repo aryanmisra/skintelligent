@@ -146,9 +146,9 @@ def train(mode):
     labels_3 = list(l3).count(1)
 
     class_weights_se={
-        0: len(utils.json_list)/labels_1,  # A
-        1: len(utils.json_list)/labels_2,  # C
-        2: len(utils.json_list)/labels_3  # P
+        0: len(utils.json_list)/labels_1,  
+        1: (len(utils.json_list)/labels_2)*3,  
+        2: (len(utils.json_list)/labels_3)*3  
     }
     print(class_weights_se)
     

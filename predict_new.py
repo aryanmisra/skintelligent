@@ -16,13 +16,13 @@ t0 = time.time()
 print("Loading model..")
 model_sec_a = keras.models.load_model('../saves/model_A.h5', compile=False)
 
-model_sec_c = keras.models.load_model('../saves/model_C.h5', compile=False)
+model_sec_c = keras.models.load_model('../saves/model_C_m.h5', compile=False)
 
 model_sec_p = keras.models.load_model('../saves/model_P.h5', compile=False)
 
-model_sec_u = keras.models.load_model('../saves/model_U.h5', compile=False)
+model_sec_u = keras.models.load_model('../saves/model_U_m.h5', compile=False)
 
-model_sec_w = keras.models.load_model('../saves/model_W.h5', compile=False)
+model_sec_w = keras.models.load_model('../saves/model_W_m.h5', compile=False)
 
 t1 = time.time()
 print("Models loaded in {0:.5f} seconds.".format(t1-t0))
