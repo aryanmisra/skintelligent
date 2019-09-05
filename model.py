@@ -123,6 +123,8 @@ def CNN_model_sec(x,y,z):
     model = tf.keras.Sequential([
         base_model,
         layers.GlobalAveragePooling2D(),
+        layers.Dense(128, activation='relu'),
+        layers.Dropout(0.5),
         layers.Dense(64, activation='relu'),
         layers.Dropout(0.5),
         layers.Dense(3, activation='softmax')
