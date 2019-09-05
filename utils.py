@@ -30,7 +30,6 @@ def json_process(constraint):
             annotation = json.loads(json_data.read())
             temp_fn = "../images/"+annotation['filename']
             del annotation['filename']
-            print(temp_fn)
             if os.path.exists(temp_fn):
                 for x in annotation:
                     for j in range(0,5):

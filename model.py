@@ -115,7 +115,7 @@ def CNN_model(x,y,z):
     return model
 
 def CNN_model_sec(x,y,z):
-    base_model = tf.keras.applications.ResNet50(input_shape=(x, y, z),
+    base_model = tf.keras.applications.MobileNetV2(input_shape=(x, y, z),
                                                include_top=False)
     # for layer in base_model.layers[:-23]:
     #     layer.trainable = False
