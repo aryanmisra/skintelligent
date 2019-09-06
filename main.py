@@ -10,7 +10,7 @@ import argparse
 from datetime import datetime
 #tf.enable_eager_execution()
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-from model import CNN_model, CNN_model_sec, learn_rate
+from model import CNN_model, CNN_model_sec, learn_rate, multi_model, loss_list, test_metrics
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 input_x = 224
 input_y = 224
@@ -125,13 +125,8 @@ def train(mode):
     if mode == 'N':
         net = CNN_model(input_x,input_y,3)
     else:
-        net = CNN_model_sec(input_x, input_y, 3)
+        net = multi_model(input_x, input_y, 3, loss_list, test_metrics,0.4)
 
-    logdir = os.path.join(
-        "logs",
-        "fit",
-        datetime.now().strftime("%Y%m%d-%H%M%S"),
-    )
     class_weights={
         0: len(utils.json_list)/utils.length('A'),  # A
         1: len(utils.json_list)/utils.length('C'),  # C
