@@ -175,7 +175,7 @@ def train(mode):
     steps_per_epoch=tf.math.ceil(len(image_path_list)/batch_size).numpy()
     t0 = time.time()
     if mode == 'N':
-        history = net.fit(t_ds, epochs=epochs,callbacks=callbacks, steps_per_epoch=steps_per_epoch, validation_data=v_ds, verbose=1, class_weight=class_weights)
+        history = net.fit(t_ds, epochs=epochs,callbacks=callbacks, steps_per_epoch=steps_per_epoch, validation_data=v_ds, verbose=1)
     else:
         history = net.fit(t_ds, epochs=epochs,callbacks=callbacks, steps_per_epoch=steps_per_epoch, validation_data=v_ds, verbose=1)
 
