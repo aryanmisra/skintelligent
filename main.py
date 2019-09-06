@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 from tensorflow import keras
-from utils import image_paths, json_process, json_process_se
+from utils import image_paths, json_process, json_process_se, json_full
 import matplotlib.pyplot as plt
 import utils
 import time
@@ -93,6 +93,10 @@ def train(mode):
         labels, image_path_list = json_process_se('U')
     elif mode == 'W':
         labels, image_path_list = json_process_se('W')
+    elif mode == 'M':
+        image_path_list = json_full()
+        labels = json_process(True)
+    
 
     #train_size = int(0.8 * len(labels))
     #val_size = int(0.2 * len(labels))
@@ -124,8 +128,10 @@ def train(mode):
     print("Preprocessing completed in {0:.5f} seconds.".format(t1-t0))
     if mode == 'N':
         net = CNN_model(input_x,input_y,3)
-    else:
+    if mode == 'M':
         net = multi_model(input_x, input_y, 3, loss_list, test_metrics,0.4)
+    else:
+        net = CNN_model_sec(input_x, input_y, 3)
 
     class_weights={
         0: len(utils.json_list)/utils.length('A'),  # A
