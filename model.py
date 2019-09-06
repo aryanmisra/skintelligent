@@ -2,6 +2,13 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import tensorflow as tf
 learn_rate = 0.00001
+loss_list = ["categorical_crossentropy",'categorical_crossentropy',
+'categorical_crossentropy','categorical_crossentropy',
+'categorical_crossentropy']
+
+test_metrics = {'a': 'accuracy','c': 'accuracy',
+               'p': 'accuracy','u': 'accuracy',
+               'w': 'accuracy'}
 """
 def CNN_model(x,y,z):
     inputs = keras.Input(shape=(x,y,z), name='input')
@@ -133,6 +140,63 @@ def CNN_model_sec(x,y,z):
     
     return model
 
+def multi_model(x,y,z,loss_list,test_metrics,dd):
+    
+    base_model = tf.keras.applications.VGG19(weights='imagenet', include_top=False)
+
+    #freeze all the layers
+    for layer in base_model.layers[:]:
+       layer.trainable = False
+
+    
+    model_input = keras.Input(shape=(x, y, z))
+    x = base_model(model_input)
+    x = layers.GlobalAveragePooling2D()(x)
+    
+    # let's add a fully-connected layer
+    x = layers.Dense(256, activation='relu')(x)
+    x = layers.Dropout(dd)(x)
+    x = layers.Dense(256, activation='relu')(x)
+    x = layers.Dropout(dd)(x)
+    # start passing that fully connected block output to all the 
+    # different model heads
+    y1 = layers.Dense(128, activation='relu')(x)
+    y1 = layers.Dropout(dd)(y1)
+    y1 = layers.Dense(64, activation='relu')(y1)
+    y1 = layers.Dropout(dd)(y1)
+    
+    y2 = layers.Dense(128, activation='relu')(x)
+    y2 = layers.Dropout(dd)(y2)
+    y2 = layers.Dense(64, activation='relu')(y2)
+    y2 = layers.Dropout(dd)(y2)
+    
+    y3 = layers.Dense(128, activation='relu')(x)
+    y3 = layers.Dropout(dd)(y3)
+    y3 = layers.Dense(64, activation='relu')(y3)
+    y3 = layers.Dropout(dd)(y3)
+
+    y4 = layers.Dense(128, activation='relu')(x)
+    y4 = layers.Dropout(dd)(y4)
+    y4 = layers.Dense(64, activation='relu')(y4)
+    y4 = layers.Dropout(dd)(y4)
+    
+    y5 = layers.Dense(128, activation='relu')(x)
+    y5 = layers.Dropout(dd)(y5)
+    y5 = layers.Dense(64, activation='relu')(y5)
+    y5 = layers.Dropout(dd)(y5)
+    
+    #connect all the heads to their final output layers
+    y1 = layers.Dense(3, activation='softmax',name= 'a')(y1)
+    y2 = layers.Dense(3, activation='softmax',name= 'c')(y2)
+    y3 = layers.Dense(3, activation='softmax',name= 'p')(y3)
+    y4 = layers.Dense(3, activation='softmax',name= 'u')(y4)
+    y5 = layers.Dense(3, activation='softmax',name= 'w')(y5)
+    
+    model = keras.Model(inputs=model_input, outputs=[ y1, y2, y3, y4, y5])
+    
+    model.compile(loss=loss_list, optimizer=keras.optimizers.SGD(lr=learn_rate,momentum=0.9), metrics=test_metrics)
+
+    return model
+
 if __name__ == '__main__':
     print("Model contained within this script.")
-

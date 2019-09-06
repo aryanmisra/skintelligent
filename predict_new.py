@@ -20,7 +20,7 @@ model_sec_c = keras.models.load_model('../saves/model_C_m.h5', compile=False)
 
 model_sec_p = keras.models.load_model('../saves/model_P.h5', compile=False)
 
-model_sec_u = keras.models.load_model('../saves/model_U_m.h5', compile=False)
+model_sec_u = keras.models.load_model('../saves/model_U.h5', compile=False)
 
 model_sec_w = keras.models.load_model('../saves/model_W_m.h5', compile=False)
 
