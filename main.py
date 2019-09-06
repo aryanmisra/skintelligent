@@ -133,28 +133,28 @@ def train(mode):
     else:
         net = CNN_model_sec(input_x, input_y, 3)
 
-    class_weights={
-        0: len(utils.json_list)/utils.length('A'),  # A
-        1: len(utils.json_list)/utils.length('C'),  # C
-        2: len(utils.json_list)/utils.length('P'),  # P
-        3: len(utils.json_list)/utils.length('U'),  # U
-        4: len(utils.json_list)/utils.length('W')  # W
-    }
+    # class_weights={
+    #     0: len(utils.json_list)/utils.length('A'),  # A
+    #     1: len(utils.json_list)/utils.length('C'),  # C
+    #     2: len(utils.json_list)/utils.length('P'),  # P
+    #     3: len(utils.json_list)/utils.length('U'),  # U
+    #     4: len(utils.json_list)/utils.length('W')  # W
+    # }
     
-    l1, l2, l3 = labels.T
-    labels_1 = list(l1).count(1)
-    labels_2 = list(l2).count(1)
-    labels_3 = list(l3).count(1)
+    # l1, l2, l3 = labels.T
+    # labels_1 = list(l1).count(1)
+    # labels_2 = list(l2).count(1)
+    # labels_3 = list(l3).count(1)
 
-    class_weights_se={
-        0: len(utils.json_list)/labels_1,  
-        1: (len(utils.json_list)/labels_2)*3,  
-        2: (len(utils.json_list)/labels_3)*3  
-    }
-    print(class_weights_se)
+    # class_weights_se={
+    #     0: len(utils.json_list)/labels_1,  
+    #     1: (len(utils.json_list)/labels_2)*3,  
+    #     2: (len(utils.json_list)/labels_3)*3  
+    # }
+    # print(class_weights_se)
     
     
-    print(class_weights)
+    # print(class_weights)
     #os.mkdir(logdir)
     callbacks = [
     #keras.callbacks.EarlyStopping(monitor='loss', 
